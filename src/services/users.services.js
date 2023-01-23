@@ -21,11 +21,11 @@ class usersServices {
                 attributes:{ exclude:['createdAt', 'updatedAt' , 'password'] },
                 include: {
                     model: Users_Courses,
-                    as: 'userscourses',
+                    as: 'users_x_users_courses',
                     //attributes: ['id'],
                     include: {
                         model: Courses,
-                        as: 'courses',
+                        as: 'users_courses_x_courses',
                         //attributes: ['title'],
                     }
                 }
@@ -37,7 +37,40 @@ class usersServices {
         }
     }
 
-    
+    static async newUserCreate(newUser){
+        try {		
+            const result = await Users.create(newUser);
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async addcourse(iduser, idcourse){
+        try {
+            const newObj = {
+                userId:iduser,
+                courseId:idcourse
+            }		
+            const result = await Users_Courses.create(newObj);
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async update(newUser, id){
+        try {		
+            const result = await Users.update({ first_name: newUser.first_name, last_name:newUser.last_name, password:newUser.password }, {
+                            where: {
+                              id: id
+                            }
+                          });
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = usersServices;

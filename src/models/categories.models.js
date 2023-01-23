@@ -12,17 +12,8 @@ const Categories = db.define("categories", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  courseId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Courses,
-      key: "id",
-  },
-    field: "course_id"
-  },
-}, {
+  }
+  }, {
     timestamps: false,
   });
 

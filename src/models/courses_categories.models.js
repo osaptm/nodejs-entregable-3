@@ -1,23 +1,23 @@
 const db = require("../utils/database");
 const { DataTypes } = require("sequelize");
-const Users = require("./users.models");
+const Categories = require("./categories.models");
 const Courses = require("./courses.models");
 
-const Users_Courses = db.define("users_courses", {
+const Courses_Categories = db.define("courses_categories", {
   id: {
     primaryKey: true,
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
   },
-  userId: {
+  categoryId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Users,
+      model: Categories,
       key: "id",
   },
-  field:"user_id",
+  field:"category_id",
   },
   courseId: {
     type: DataTypes.INTEGER,
@@ -32,4 +32,4 @@ const Users_Courses = db.define("users_courses", {
   timestamps: false,
 });
 
-module.exports = Users_Courses;
+module.exports = Courses_Categories;

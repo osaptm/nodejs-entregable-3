@@ -1,12 +1,10 @@
 const Users = require("../models/users.models");
 const Courses = require("../models/courses.models");
 const Users_Courses = require("../models/users_courses.models");
+const Courses_Categories = require("../models/courses_categories.models");
 const Categories = require("../models/categories.models");
 const Videos = require("../models/videos.models");
-const initModel = require("../models/initModels");
 const db = require("../utils/database");
-
-initModel();
 
 const users = [
   { first_name: "Ian Rosas", last_name: "Ian Rosas", email: "ian@gmail.com", password: "1234" },
@@ -19,6 +17,11 @@ const courses = [
   { title: "Curso 2", description: "Description Curso 2", instructor: "Instructor 2"},
   { title: "Curso 3", description: "Description Curso 3", instructor: "Instructor 3"},
 ];
+const categories = [
+  { name: 'Matematica'},
+  { name: 'Fisica'},
+  { name: 'Quimica'},
+];
 
 const users_courses = [
   { userId: 1, courseId: 1},
@@ -28,11 +31,15 @@ const users_courses = [
   { userId: 3, courseId: 3},
 ];
 
-const categories = [
-  { name: 'Matematica', courseId: 1},
-  { name: 'Fisica', courseId: 2},
-  { name: 'Quimica', courseId: 3},
+const courses_categories = [
+  { categoryId: 1, courseId: 1},
+  { categoryId: 1, courseId: 2},
+  { categoryId: 1, courseId: 3},
+  { categoryId: 2, courseId: 2},
+  { categoryId: 3, courseId: 3},
 ];
+
+
 const videos = [
   { title: 'Video Mate', url: 'URL', courseId: 1},
   { title: 'Video Fisica', url: 'URL', courseId: 2},
@@ -53,12 +60,16 @@ db.sync({ force: true })
     setTimeout(() => {
       categories.forEach((categorie) => Categories.create(categorie));
     }, 300);
+
     setTimeout(() => {
       videos.forEach((video) => Videos.create(video));
     }, 600);
 
     setTimeout(() => {
       users_courses.forEach((user_course) => Users_Courses.create(user_course));
+    }, 1000);
+    setTimeout(() => {
+      courses_categories.forEach((cc) => Courses_Categories.create(cc));
     }, 2000);
   })
   .catch((error) => console.log(error));
